@@ -1,0 +1,62 @@
+You are given a 0-indexed circular string array words and a string target. A circular array means that the array's end connects to the array's beginning.
+
+Formally, the next element of words[i] is words[(i + 1) % n] and the previous element of words[i] is words[(i - 1 + n) % n], where n is the length of words.
+Starting from startIndex, you can move to either the next word or the previous word with 1 step at a time.
+
+Return the shortest distance needed to reach the string target. If the string target does not exist in words, return -1.
+
+ 
+
+Example 1:
+
+Input: words = ["hello","i","am","leetcode","hello"], target = "hello", startIndex = 1
+Output: 1
+Explanation: We start from index 1 and can reach "hello" by
+- moving 3 units to the right to reach index 4.
+- moving 2 units to the left to reach index 4.
+- moving 4 units to the right to reach index 0.
+- moving 1 unit to the left to reach index 0.
+The shortest distance to reach "hello" is 1.
+Example 2:
+
+Input: words = ["a","b","leetcode"], target = "leetcode", startIndex = 0
+Output: 1
+Explanation: We start from index 0 and can reach "leetcode" by
+- moving 2 units to the right to reach index 2.
+- moving 1 unit to the left to reach index 2.
+The shortest distance to reach "leetcode" is 1.
+
+
+
+##solution
+
+public class Solution {
+    public int ClosestTarget(string[] words, string target, int startIndex) {
+        int result = 1000;
+        HashSet<string> hs = new ();
+        HashSet<string> hw = new ();
+        int count1 =0;
+        int count2 =0;
+        for (int i =0 ; i < words.Length ; i++){
+            if(!hs.Contains(target)){
+                hs.Add(words[(startIndex+i+words.Length)%words.Length]);
+                count1++;
+            }
+            else{
+                if(count1< result)
+                result = count1;
+                break;
+            }
+             if(!hw.Contains(target)){
+                hw.Add(words[(startIndex-i+words.Length)%words.Length]);
+                count2++;
+            }
+            else{
+                if(count2< result)
+                result = count2;
+                break;
+            }
+        }
+        return result == 1000 ? -1 : result-1;
+    }
+}
