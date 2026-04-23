@@ -35,3 +35,8 @@ public class Solution {
        return new int[]{1,2};
     }
 }
+
+
+
+## solution 2 
+2 for loops
